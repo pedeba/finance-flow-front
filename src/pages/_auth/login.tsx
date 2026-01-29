@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, Link } from '@tanstack/react-router'
 import { useForm, FormProvider } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -61,6 +61,9 @@ function Login() {
           </button>
         </form>
       </FormProvider>
+      <span>
+        Não tem uma conta? <Link to="/register">Cadastre-se</Link>
+      </span>
     </div>
   )
 }

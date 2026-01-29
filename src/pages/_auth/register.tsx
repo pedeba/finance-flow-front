@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, Link } from '@tanstack/react-router'
 import styles from './auth-form.module.css'
 import {useForm, FormProvider} from 'react-hook-form'
 import { z } from 'zod'
@@ -70,6 +70,9 @@ function Register() {
           </button>
         </form>
       </FormProvider>
+      <span>
+        Já tem uma conta? <Link to="/login">Faça login</Link>
+      </span>
     </div>
   )
 }
