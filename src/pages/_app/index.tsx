@@ -1,4 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { useAuth } from '../../hooks/use-auth'
 
 export const Route = createFileRoute('/_app/')({
   component: Home,
@@ -12,9 +13,11 @@ export const Route = createFileRoute('/_app/')({
 })
 
 function Home() {
+  const { logout, user} = useAuth()
   return (
       <div>
-        Tetse
+        Teste {user?.name}
+        <button onClick={() => logout()}>Logout</button>
       </div>
   )
 }

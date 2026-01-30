@@ -4,11 +4,12 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import styles from './auth-form.module.css'
 import { Form } from '../../components/form'
+import { useAuth } from '../../hooks/use-auth'
+import { ToastComponent } from '../../components/Toast'
 
 const loginSchema = z.object({
   email: z.string().nonempty('Email é obrigatório').email('Email inválido'),
-  password: z.string().nonempty('Senha é obrigatória').min(8, 'Senha deve ter pelo menos 8 caracteres'),
-  name: z.string().nonempty('Nome é obrigatório'),
+  password: z.string().nonempty('Senha é obrigatória').min(6, 'Senha deve ter pelo menos 6 caracteres'),
 })
 
 export const Route = createFileRoute('/_auth/login')({
@@ -21,23 +22,34 @@ export const Route = createFileRoute('/_auth/login')({
 type LoginSchemaType = z.infer<typeof loginSchema>
 
 function Login() {
+  const { login, loginPending, loginError, resetLoginError } = useAuth()
+  
   const createLoginForm = useForm<LoginSchemaType>({
     resolver: zodResolver(loginSchema),
   })
   
   const onSubmit = (data: LoginSchemaType) => {
-    console.log(data)
+    login(data)
   }
 
   const { 
     handleSubmit, 
-    formState: { isSubmitting }, 
   } = createLoginForm;
 
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Login</h1>
       
+      {loginError && (
+        <ToastComponent
+          open={!!loginError}
+          onOpenChange={(open) => !open && resetLoginError()}
+          title="Erro no login"
+          description={loginError.message}
+          variant="error"
+        />
+      )}
+
       <FormProvider {...createLoginForm}>
         <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
           <Form.Field>
@@ -54,16 +66,17 @@ function Login() {
 
           <button 
             type="submit" 
-            disabled={isSubmitting}
+            disabled={loginPending}
             className={styles.submitButton}
           >
-            {isSubmitting ? 'Entrando...' : 'Entrar'}
+            {loginPending ? 'Entrando...' : 'Entrar'}
           </button>
         </form>
       </FormProvider>
       <span>
         Não tem uma conta? <Link to="/register">Cadastre-se</Link>
       </span>
+
     </div>
   )
 }
