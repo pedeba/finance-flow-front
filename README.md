@@ -1,4 +1,4 @@
-# 💰 Finance Flow
+# 🌳 Figueira Hub
 
 Projeto desenvolvido com o objetivo de **aprender e praticar** tecnologias modernas do ecossistema React.
 

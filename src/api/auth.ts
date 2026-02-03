@@ -15,6 +15,20 @@ export const authApi = {
       throw new Error(error)
     }
   },
+  register: async ({ name, email, birthDate, password }: { name: string; email: string; birthDate: string; password: string }) => {
+    const response = await fetch(`${BASE_URL}/register`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ name, email, birthDate, password }),
+    })
+    if (!response.ok) {
+      const {error} = await response.json() as {error: string}
+      throw new Error(error)
+    }
+  },
   logout: async () => {
     const response = await fetch(`${BASE_URL}/logout`, {
       method: 'POST',

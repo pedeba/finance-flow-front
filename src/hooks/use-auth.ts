@@ -21,16 +21,23 @@ export function useAuth() {
     onSuccess: async () => {
       await queryClient.fetchQuery({ 
         queryKey: ['user'], 
-        queryFn: userApi.getUser 
+        queryFn: userApi.getUser,
       })
       navigate({ to: '/' })
+    },
+  })
+
+  const registerMutation = useMutation({
+    mutationFn: authApi.register,
+    onSuccess: () => {
+      navigate({ to: '/login', search: { registered: true } })
     },
   })
 
   const logoutMutation = useMutation({
     mutationFn: authApi.logout,
     onSuccess: () => {
-      navigate({ to: '/login' })
+      navigate({ to: '/login', search: { registered: undefined } })
       queryClient.setQueryData(['user'], null)
     },
   })
@@ -44,6 +51,10 @@ export function useAuth() {
     loginError: loginMutation.error,
     resetLoginError: loginMutation.reset,
     logout: logoutMutation.mutate,
+    register: registerMutation.mutate,
+    registerPending: registerMutation.isPending,
+    registerError: registerMutation.error,
+    resetRegisterError: registerMutation.reset,
   }
 
 }

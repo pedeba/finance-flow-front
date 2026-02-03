@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from '@tanstack/react-router'
+import { createFileRoute, Link, useNavigate } from '@tanstack/react-router'
 import { useForm, FormProvider } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -17,6 +17,9 @@ const loginSchema = z.object({
 
 export const Route = createFileRoute('/_auth/login')({
   component: Login,
+  validateSearch: (search: { registered?: boolean }) => ({
+    registered: search.registered,
+  }),
   head: () => ({
     meta: [{ title: 'Login | Finance Flow' }],
   }),
@@ -26,7 +29,9 @@ type LoginSchemaType = z.infer<typeof loginSchema>
 
 function Login() {
   const { login, loginPending, loginError, resetLoginError } = useAuth()
-  
+  const navigate = useNavigate()
+  const { registered } = Route.useSearch()
+
   const createLoginForm = useForm<LoginSchemaType>({
     resolver: zodResolver(loginSchema),
   })
@@ -41,8 +46,22 @@ function Login() {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Login</h1>
+      <h1 className={styles.title}>Entrar</h1>
       
+      {registered && (
+        <ToastComponent
+          open={!!registered}
+          onOpenChange={(open) => !open && navigate({
+            to: '/login',
+            replace: true,
+            search: { registered: undefined },
+          })}
+          title="Cadastro realizado com sucesso"
+          description="Você pode agora fazer login"
+          variant="success"
+        />
+      )}
+
       {loginError && (
         <ToastComponent
           open={!!loginError}
