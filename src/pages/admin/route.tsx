@@ -27,14 +27,15 @@ function RouteComponent() {
         <Sidebar.Nav>
           <Sidebar.NavList>
             <Sidebar.NavLink to="/admin" icon={<Home size={18} />} text="Home" />
-            <Sidebar.NavLink to="/admin" icon={<Volleyball size={18} />} text="Partidas" />
+            <Sidebar.NavLink to="/admin/matches" icon={<Volleyball size={18} />} text="Partidas" />
             <Sidebar.NavLink to="/admin" icon={<Users size={18} />} text="Jogadores" />
             <Sidebar.NavLink to="/admin" icon={<ClipboardList size={18} />} text="Escalações" />
           </Sidebar.NavList>
         </Sidebar.Nav>
       </Sidebar.Root>
-      <div>Admin Layout</div>
       <Outlet />
+      <div className="secondary-content-container">
+      </div>
     </div>
   )
 }

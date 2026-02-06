@@ -377,7 +377,18 @@ button:disabled,
   flex-direction: row;
   height: 100vh;
   width: 100vw;
-  gap: var(--space-xl);
+}
+
+.content-container {
+  padding: var(--space-md) var(--space-xl);
+  background-color: var(--bg-main);
+  width: 1100px;
+  border-right: 1px solid var(--border);
+}
+
+.secondary-content-container {
+  flex: 1;
+  padding: var(--space-md) var(--space-xl);
 }
 
 /* ========================

@@ -25,7 +25,7 @@ export function CheckBox({id, label, name}: CheckBoxProps) {
             onCheckedChange={field.onChange}
           >
             <Checkbox.Indicator className={styles.Indicator}>
-              <Check size={12} />
+              <Check />
             </Checkbox.Indicator>
           </Checkbox.Root>
           <label className={styles.Label} htmlFor={id}>

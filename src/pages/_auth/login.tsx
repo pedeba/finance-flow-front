@@ -8,6 +8,8 @@ import { useAuth } from '../../hooks/use-auth'
 import { ToastComponent } from '../../components/radix/toast'
 import { PasswordToggleField } from '../../components/radix/password-toggle-field'
 import { CheckBox } from '../../components/radix/checkbox'
+import { fallback, zodSearchValidator } from '@tanstack/router-zod-adapter'
+
 
 const loginSchema = z.object({
   email: z.string().nonempty('Email é obrigatório').email('Email inválido'),
@@ -15,11 +17,13 @@ const loginSchema = z.object({
   remember: z.boolean().optional(),
 })
 
+const loginSearchSchema = z.object({
+  registered: fallback(z.boolean().optional(), undefined)
+})
+
 export const Route = createFileRoute('/_auth/login')({
   component: Login,
-  validateSearch: (search: { registered?: boolean }) => ({
-    registered: search.registered,
-  }),
+  validateSearch: zodSearchValidator(loginSearchSchema),
   head: () => ({
     meta: [{ title: 'Login | Finance Flow' }],
   }),

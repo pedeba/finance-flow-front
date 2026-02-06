@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './pages/__root'
 import { Route as AdminRouteRouteImport } from './pages/admin/route'
 import { Route as AuthRouteRouteImport } from './pages/_auth/route'
 import { Route as AppRouteRouteImport } from './pages/_app/route'
+import { Route as AdminMatchesRouteImport } from './pages/admin/matches'
 import { Route as AuthRegisterRouteImport } from './pages/_auth/register'
 import { Route as AuthLoginRouteImport } from './pages/_auth/login'
 
@@ -28,6 +29,11 @@ const AppRouteRoute = AppRouteRouteImport.update({
   id: '/_app',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminMatchesRoute = AdminMatchesRouteImport.update({
+  id: '/matches',
+  path: '/matches',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
 const AuthRegisterRoute = AuthRegisterRouteImport.update({
   id: '/register',
   path: '/register',
@@ -41,29 +47,32 @@ const AuthLoginRoute = AuthLoginRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof AuthRouteRouteWithChildren
-  '/admin': typeof AdminRouteRoute
+  '/admin': typeof AdminRouteRouteWithChildren
   '/login': typeof AuthLoginRoute
   '/register': typeof AuthRegisterRoute
+  '/admin/matches': typeof AdminMatchesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof AuthRouteRouteWithChildren
-  '/admin': typeof AdminRouteRoute
+  '/admin': typeof AdminRouteRouteWithChildren
   '/login': typeof AuthLoginRoute
   '/register': typeof AuthRegisterRoute
+  '/admin/matches': typeof AdminMatchesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_app': typeof AppRouteRoute
   '/_auth': typeof AuthRouteRouteWithChildren
-  '/admin': typeof AdminRouteRoute
+  '/admin': typeof AdminRouteRouteWithChildren
   '/_auth/login': typeof AuthLoginRoute
   '/_auth/register': typeof AuthRegisterRoute
+  '/admin/matches': typeof AdminMatchesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/admin' | '/login' | '/register'
+  fullPaths: '/' | '/admin' | '/login' | '/register' | '/admin/matches'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/admin' | '/login' | '/register'
+  to: '/' | '/admin' | '/login' | '/register' | '/admin/matches'
   id:
     | '__root__'
     | '/_app'
@@ -71,12 +80,13 @@ export interface FileRouteTypes {
     | '/admin'
     | '/_auth/login'
     | '/_auth/register'
+    | '/admin/matches'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   AppRouteRoute: typeof AppRouteRoute
   AuthRouteRoute: typeof AuthRouteRouteWithChildren
-  AdminRouteRoute: typeof AdminRouteRoute
+  AdminRouteRoute: typeof AdminRouteRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -101,6 +111,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof AppRouteRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/admin/matches': {
+      id: '/admin/matches'
+      path: '/matches'
+      fullPath: '/admin/matches'
+      preLoaderRoute: typeof AdminMatchesRouteImport
+      parentRoute: typeof AdminRouteRoute
     }
     '/_auth/register': {
       id: '/_auth/register'
@@ -133,10 +150,22 @@ const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
   AuthRouteRouteChildren,
 )
 
+interface AdminRouteRouteChildren {
+  AdminMatchesRoute: typeof AdminMatchesRoute
+}
+
+const AdminRouteRouteChildren: AdminRouteRouteChildren = {
+  AdminMatchesRoute: AdminMatchesRoute,
+}
+
+const AdminRouteRouteWithChildren = AdminRouteRoute._addFileChildren(
+  AdminRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   AppRouteRoute: AppRouteRoute,
   AuthRouteRoute: AuthRouteRouteWithChildren,
-  AdminRouteRoute: AdminRouteRoute,
+  AdminRouteRoute: AdminRouteRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
