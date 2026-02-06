@@ -12,9 +12,11 @@ import { Route as rootRouteImport } from './pages/__root'
 import { Route as AdminRouteRouteImport } from './pages/admin/route'
 import { Route as AuthRouteRouteImport } from './pages/_auth/route'
 import { Route as AppRouteRouteImport } from './pages/_app/route'
-import { Route as AdminMatchesRouteImport } from './pages/admin/matches'
 import { Route as AuthRegisterRouteImport } from './pages/_auth/register'
 import { Route as AuthLoginRouteImport } from './pages/_auth/login'
+import { Route as AdminMatchesIndexRouteImport } from './pages/admin/matches.index'
+import { Route as AdminMatchesCreateRouteImport } from './pages/admin/matches.create'
+import { Route as AdminMatchesMatchEditRouteImport } from './pages/admin/matches.$match.edit'
 
 const AdminRouteRoute = AdminRouteRouteImport.update({
   id: '/admin',
@@ -29,11 +31,6 @@ const AppRouteRoute = AppRouteRouteImport.update({
   id: '/_app',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AdminMatchesRoute = AdminMatchesRouteImport.update({
-  id: '/matches',
-  path: '/matches',
-  getParentRoute: () => AdminRouteRoute,
-} as any)
 const AuthRegisterRoute = AuthRegisterRouteImport.update({
   id: '/register',
   path: '/register',
@@ -44,20 +41,39 @@ const AuthLoginRoute = AuthLoginRouteImport.update({
   path: '/login',
   getParentRoute: () => AuthRouteRoute,
 } as any)
+const AdminMatchesIndexRoute = AdminMatchesIndexRouteImport.update({
+  id: '/matches/',
+  path: '/matches/',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+const AdminMatchesCreateRoute = AdminMatchesCreateRouteImport.update({
+  id: '/matches/create',
+  path: '/matches/create',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+const AdminMatchesMatchEditRoute = AdminMatchesMatchEditRouteImport.update({
+  id: '/matches/$match/edit',
+  path: '/matches/$match/edit',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof AuthRouteRouteWithChildren
   '/admin': typeof AdminRouteRouteWithChildren
   '/login': typeof AuthLoginRoute
   '/register': typeof AuthRegisterRoute
-  '/admin/matches': typeof AdminMatchesRoute
+  '/admin/matches/create': typeof AdminMatchesCreateRoute
+  '/admin/matches/': typeof AdminMatchesIndexRoute
+  '/admin/matches/$match/edit': typeof AdminMatchesMatchEditRoute
 }
 export interface FileRoutesByTo {
   '/': typeof AuthRouteRouteWithChildren
   '/admin': typeof AdminRouteRouteWithChildren
   '/login': typeof AuthLoginRoute
   '/register': typeof AuthRegisterRoute
-  '/admin/matches': typeof AdminMatchesRoute
+  '/admin/matches/create': typeof AdminMatchesCreateRoute
+  '/admin/matches': typeof AdminMatchesIndexRoute
+  '/admin/matches/$match/edit': typeof AdminMatchesMatchEditRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -66,13 +82,29 @@ export interface FileRoutesById {
   '/admin': typeof AdminRouteRouteWithChildren
   '/_auth/login': typeof AuthLoginRoute
   '/_auth/register': typeof AuthRegisterRoute
-  '/admin/matches': typeof AdminMatchesRoute
+  '/admin/matches/create': typeof AdminMatchesCreateRoute
+  '/admin/matches/': typeof AdminMatchesIndexRoute
+  '/admin/matches/$match/edit': typeof AdminMatchesMatchEditRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/admin' | '/login' | '/register' | '/admin/matches'
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/login'
+    | '/register'
+    | '/admin/matches/create'
+    | '/admin/matches/'
+    | '/admin/matches/$match/edit'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/admin' | '/login' | '/register' | '/admin/matches'
+  to:
+    | '/'
+    | '/admin'
+    | '/login'
+    | '/register'
+    | '/admin/matches/create'
+    | '/admin/matches'
+    | '/admin/matches/$match/edit'
   id:
     | '__root__'
     | '/_app'
@@ -80,7 +112,9 @@ export interface FileRouteTypes {
     | '/admin'
     | '/_auth/login'
     | '/_auth/register'
-    | '/admin/matches'
+    | '/admin/matches/create'
+    | '/admin/matches/'
+    | '/admin/matches/$match/edit'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -112,13 +146,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/admin/matches': {
-      id: '/admin/matches'
-      path: '/matches'
-      fullPath: '/admin/matches'
-      preLoaderRoute: typeof AdminMatchesRouteImport
-      parentRoute: typeof AdminRouteRoute
-    }
     '/_auth/register': {
       id: '/_auth/register'
       path: '/register'
@@ -132,6 +159,27 @@ declare module '@tanstack/react-router' {
       fullPath: '/login'
       preLoaderRoute: typeof AuthLoginRouteImport
       parentRoute: typeof AuthRouteRoute
+    }
+    '/admin/matches/': {
+      id: '/admin/matches/'
+      path: '/matches'
+      fullPath: '/admin/matches/'
+      preLoaderRoute: typeof AdminMatchesIndexRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/admin/matches/create': {
+      id: '/admin/matches/create'
+      path: '/matches/create'
+      fullPath: '/admin/matches/create'
+      preLoaderRoute: typeof AdminMatchesCreateRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/admin/matches/$match/edit': {
+      id: '/admin/matches/$match/edit'
+      path: '/matches/$match/edit'
+      fullPath: '/admin/matches/$match/edit'
+      preLoaderRoute: typeof AdminMatchesMatchEditRouteImport
+      parentRoute: typeof AdminRouteRoute
     }
   }
 }
@@ -151,11 +199,15 @@ const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
 )
 
 interface AdminRouteRouteChildren {
-  AdminMatchesRoute: typeof AdminMatchesRoute
+  AdminMatchesCreateRoute: typeof AdminMatchesCreateRoute
+  AdminMatchesIndexRoute: typeof AdminMatchesIndexRoute
+  AdminMatchesMatchEditRoute: typeof AdminMatchesMatchEditRoute
 }
 
 const AdminRouteRouteChildren: AdminRouteRouteChildren = {
-  AdminMatchesRoute: AdminMatchesRoute,
+  AdminMatchesCreateRoute: AdminMatchesCreateRoute,
+  AdminMatchesIndexRoute: AdminMatchesIndexRoute,
+  AdminMatchesMatchEditRoute: AdminMatchesMatchEditRoute,
 }
 
 const AdminRouteRouteWithChildren = AdminRouteRoute._addFileChildren(

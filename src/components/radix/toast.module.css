@@ -63,7 +63,7 @@
 }
 
 .Root.success {
-  border-left: 3px solid var(--accent);
+  border-left: 3px solid var(--tertiary);
   box-shadow: var(--shadow-xl), inset 0 0 30px rgba(34, 197, 94, 0.03);
 }
 

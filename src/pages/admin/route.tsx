@@ -26,7 +26,7 @@ function RouteComponent() {
         <Sidebar.Brand logo="/test.svg" />
         <Sidebar.Nav>
           <Sidebar.NavList>
-            <Sidebar.NavLink to="/admin" icon={<Home size={18} />} text="Home" />
+            <Sidebar.NavLink to="/admin" icon={<Home size={18} />} text="Home" exact />
             <Sidebar.NavLink to="/admin/matches" icon={<Volleyball size={18} />} text="Partidas" />
             <Sidebar.NavLink to="/admin/players" icon={<Users size={18} />} text="Jogadores" />
             <Sidebar.NavLink to="/admin/lineups" icon={<ClipboardList size={18} />} text="Escalações" />

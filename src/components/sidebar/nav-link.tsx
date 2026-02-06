@@ -1,21 +1,21 @@
 import { Link } from "@tanstack/react-router";
 import styles from "./sidebar.module.css";
-import { useLocation } from "@tanstack/react-router";
 
 interface SidebarNavLinkProps {
   to: string;
   icon: React.ReactNode;
   text: string;
+  exact?: boolean;
 }
 
-export function NavLink({to, icon, text}: SidebarNavLinkProps) {
-  const pathname = useLocation()
-  const isActive = pathname.pathname === to
+export function NavLink({to, icon, text, exact = false}: SidebarNavLinkProps) {
   return (
     <li key={to}>
       <Link
         to={to}
-        className={`${styles.navLink} ${isActive ? styles.active : ''}`}
+        activeOptions={{ exact }}
+        activeProps={{ className: `${styles.navLink} ${styles.active}` }}
+        inactiveProps={{ className: styles.navLink }}
       >
         <span className={styles.navIcon}>{icon}</span>
         <span className={styles.navText}>{text}</span>

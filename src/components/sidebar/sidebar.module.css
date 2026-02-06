@@ -14,7 +14,7 @@
   top: 0;
   z-index: 10;
   /* Subtle inner glow */
-  box-shadow: inset -1px 0 0 rgba(34, 197, 94, 0.03);
+  box-shadow: inset -1px 0 0 rgba(228, 228, 231, 0.03);
 }
 
 /* Brand Section */
@@ -27,7 +27,7 @@
   position: relative;
 }
 
-/* Subtle green glow behind logo */
+/* Subtle glow behind logo */
 .brand::after {
   content: '';
   position: absolute;
@@ -36,7 +36,7 @@
   transform: translate(-50%, -50%);
   width: 60px;
   height: 60px;
-  background: radial-gradient(circle, rgba(34, 197, 94, 0.12) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(228, 228, 231, 0.1) 0%, transparent 70%);
   pointer-events: none;
   border-radius: 50%;
 }
@@ -46,12 +46,12 @@
   height: auto;
   position: relative;
   z-index: 1;
-  filter: drop-shadow(0 0 8px rgba(34, 197, 94, 0.2));
+  filter: drop-shadow(0 0 8px rgba(228, 228, 231, 0.15));
   transition: filter var(--transition-base);
 }
 
 .logo:hover {
-  filter: drop-shadow(0 0 14px rgba(34, 197, 94, 0.4));
+  filter: drop-shadow(0 0 14px rgba(228, 228, 231, 0.3));
 }
 
 /* Navigation */
@@ -88,7 +88,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(34, 197, 94, 0.06) 0%, transparent 60%);
+  background: linear-gradient(135deg, rgba(228, 228, 231, 0.06) 0%, transparent 60%);
   opacity: 0;
   transition: opacity var(--transition-base);
   border-radius: inherit;
@@ -107,20 +107,20 @@
 }
 
 .navLink.active {
-  background: linear-gradient(135deg, rgba(34, 197, 94, 0.12) 0%, rgba(34, 197, 94, 0.04) 100%);
-  border-color: rgba(34, 197, 94, 0.25);
+  background: linear-gradient(135deg, rgba(228, 228, 231, 0.1) 0%, rgba(228, 228, 231, 0.04) 100%);
+  border-color: rgba(228, 228, 231, 0.2);
   color: var(--accent);
   text-decoration: none;
   box-shadow: 
-    0 0 15px rgba(34, 197, 94, 0.08),
-    inset 0 0 15px rgba(34, 197, 94, 0.03);
+    0 0 15px rgba(228, 228, 231, 0.06),
+    inset 0 0 15px rgba(228, 228, 231, 0.03);
 }
 
 .navLink.active::before {
   opacity: 1;
 }
 
-/* Green indicator bar on active */
+/* Indicator bar on active */
 .navLink.active::after {
   content: '';
   position: absolute;
@@ -131,7 +131,7 @@
   height: 60%;
   background: var(--accent);
   border-radius: 0 3px 3px 0;
-  box-shadow: 0 0 8px rgba(34, 197, 94, 0.5);
+  box-shadow: 0 0 8px rgba(228, 228, 231, 0.4);
 }
 
 .navIcon {
@@ -149,7 +149,7 @@
 }
 
 .navLink.active .navIcon {
-  filter: drop-shadow(0 0 4px rgba(34, 197, 94, 0.4));
+  filter: drop-shadow(0 0 4px rgba(228, 228, 231, 0.3));
 }
 
 .navText {

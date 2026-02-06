@@ -14,7 +14,7 @@
   position: relative;
 }
 
-/* Subtle top green accent line */
+/* Subtle top accent line */
 .table::before {
   content: '';
   position: absolute;
@@ -22,7 +22,7 @@
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(34, 197, 94, 0.3), transparent);
+  background: linear-gradient(90deg, transparent, rgba(228, 228, 231, 0.2), transparent);
   z-index: 1;
 }
 
